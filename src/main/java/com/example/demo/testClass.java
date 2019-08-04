@@ -1,13 +1,24 @@
 package com.example.demo;
 
-import com.tutorial.starterUtil.service.TestSample;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
-public class testClass implements TestSample {
+import com.tutorial.starterUtil.config.Properties;
+import com.tutorial.starterUtil.service.TestSampleImpl;
 
-    @Override
-    public void startTest() {
-        // TODO Auto-generated method stub
-        System.out.println("Custom");
-    }
+@Configuration
+@EnableConfigurationProperties({TestSampleImpl.class,Properties.class})
+public class testClass {
+    @Autowired
+    TestSampleImpl sample;
+    
+    @Autowired
+    Properties props;
+
+  public void fromJar() {
+     sample.startTest();
+     System.out.println(props.getUrl());
+  }
 
 }
